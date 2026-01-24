@@ -21,6 +21,39 @@ body {
     border: 2px solid rgb(124, 124, 124);
 }
 
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+
+}
+
+.input-box {
+    outline: none;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid gray;
+    padding: 10px 10px 10px 10px;
+    width: 100%;
+
+}
+
+.label {
+    position: absolute;
+    left: 5px;
+    top: 10px;
+}
+
+.input-box:focus~label,
+.input-box:not(:placeholder-shown)~label {
+    top:  -20px;
+    font-size: .9rem;
+    color: rgb(97, 173, 235);
+}
+
+.input-box:focus {
+    border-width: 2px;
+    border-bottom-color: rgb(63, 132, 192);
+}
 
 
 

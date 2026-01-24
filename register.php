@@ -38,18 +38,25 @@ if (isset($_POST["S'inscrire"])) {
         
         <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="" method="post">
             <h1 class="text-center mb-4">Inscription</h1>
-            <label for="">Pseudo</label>    
-            <input class="form-control" type="text" name="pseudo" id="pseudo" placeholder="Entrer le pseudo" required>
-            <label for="">Email</label>
-            <input class="form-control" type="text" name="email" id="email" placeholder="Entrer le email" required>
+            <div class="input-group">                
+                <input class="input-box" type="text" name="pseudo" id="pseudo" placeholder="" required>
+                <label class="label" for="pseudo">Pseudo</label>    
+            </div>
+            <div class="input-group">                
+                <input class="input-box" type="text" name="email" id="email" placeholder="" required>
+                <label class="label" for="email">Email</label>
+            </div>
             <?php if (isset($error_email)) { ?>
             <p class="alert alert-danger mt-3"> <?= $error_email ?></p>
             <?php } ?>
-            <label for="">Mot de passe</label>
-            <input class="form-control" type="password" name="password" id="password" placeholder="Entrer le mot de passe" required>
-            <label for="">Confirmer le mot de passe</label>
-            <input class="form-control" type="password" name="password2" id="password2" placeholder="Confirmer le mot de passe" required>
-            <label for=""></label>
+            <div class="input-group">                
+                <input class="input-box" type="password" name="password" id="password" placeholder="" required>
+                <label class="label" for="password">Mot de passe</label>
+            </div>
+            <div class="input-group">                
+                <input class="input-box" type="password" name="password2" id="password2" placeholder="" required>
+                <label class="label" for="password2">Confirmer le mot de passe</label>
+            </div>
             <input class="form-control btn text-white" type="submit" name="S'inscrire" value="S'inscrire">
         </form>
     </main>

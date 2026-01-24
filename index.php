@@ -1,7 +1,9 @@
 <?php
 session_start();
 if (!isset($_SESSION['pseudo'])) {
-    header("Location: register.php");
+    $e = "Veuillez vous onnectez-vous !";
+    header("Location: login.php?erreur=$e");
+    exit;
 }
 $id = mysqli_connect("localhost", "root", "", "db_chat");
 
