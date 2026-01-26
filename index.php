@@ -11,7 +11,7 @@ $contacts = "SELECT * FROM t_users";
 $users = [];
 $users = mysqli_query($id, $contacts);
 
-if (isset($_POST['envoyer'])) {
+if (isset($_POST['envoyer-message'])) {
     $expediteur = $_SESSION['id_user'];
     $message = $_POST['message'];
     $destinataire = $_POST['destinataire'];
@@ -24,13 +24,16 @@ if (isset($_POST['envoyer'])) {
     exit();
 }
 
-if (isset($id)) {    
+if (isset($id) && isset($_POST['select-contact'])) {    
+    $expe = $_POST['contact'];
     $id_user = $_SESSION['id_user'];
     $get_message = "SELECT m.*, u.pseudo AS nom_expe FROM t_messages m 
     INNER JOIN t_users u ON m.expediteur = u.id
-    WHERE destinataire = '$id_user' OR expediteur = '$id_user'";
+    WHERE destinataire = '$id_user' AND expediteur = '$expe' OR expediteur = '$id_user'";
     $posts = [];
     $posts = mysqli_query($id, $get_message);
+} else {
+    echo '<div class"alert alert-warning">Veuillez sélectionner un contact pour afficher les messages</div>';
 }
 
 // session_destroy();
@@ -61,8 +64,20 @@ if (isset($id)) {
         <div class="message border-grey m-3">
         <h3 class="text-center mb-5">Bienvenue <?= $_SESSION['pseudo'] ?></h3><hr>
 
+         <form class="form-group" method="post" class="formContent">
+            <label class="m-2" for="contact">Contacts</label><br>
+            <select class="form-control rounded-4 shadow-sm" name="contact" id="contact">
+                <option value="" class="text-gray">Sélectionner un contact</option>
+                <?php foreach ($users as $dest) { ?>
+                <option value="<?= $dest['id'] ?>"><?= $dest['pseudo'] ?></option>
+                <?php } ?>
+            </select><br>
+            <input type="submit" value="Validé" name="select-contact">
+        </form>
+
             <ul class="list-group gap-3">
                 <?php 
+                if (isset($posts)) {
                     foreach ($posts as $post) {
                         if ($post['nom_expe'] === $_SESSION['pseudo']) {
                             $float = "ms-auto bg-self";
@@ -76,7 +91,8 @@ if (isset($id)) {
                     <p><?= $post['message'] ?></p>
                     <small><?= $post['date'] ?></small>
                 </li>
-                <?php } ?>
+                <?php }
+                }; ?>
             </ul>
             <hr>
             <div class="p-5">
@@ -91,7 +107,8 @@ if (isset($id)) {
                     <!-- <label for="message">Entrer votre message</label><br> -->
                      <div class="position-relative">
                          <textarea class="form-control mb-3 shadow rounded-5" name="message" id="" placeholder="Message..." required></textarea>
-                         <button class="position-absolute top-50 end-0 translate-middle-y me-2 btn rounded-circle text-white bi bi-send" type="submit" name="envoyer" value="Envoyer">
+                         <button class="position-absolute top-50 end-0 translate-middle-y me-2 btn rounded-circle text-white bi bi-send" 
+                         type="submit" name="envoyer-message" value="Envoyer">
                     </div>
                 </form>
             </div>
