@@ -29,7 +29,7 @@ if (isset($id) && isset($_POST['select-contact'])) {
     $id_user = $_SESSION['id_user'];
     $get_message = "SELECT m.*, u.pseudo AS nom_expe FROM t_messages m 
     INNER JOIN t_users u ON m.expediteur = u.id
-    WHERE destinataire = '$id_user' AND expediteur = '$expe' OR expediteur = '$id_user'";
+    WHERE destinataire = '$id_user' AND expediteur = '$expe' OR expediteur = '$id_user' AND destinataire = '$expe'";
     $posts = [];
     $posts = mysqli_query($id, $get_message);
 } else {
