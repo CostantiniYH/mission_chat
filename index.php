@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['pseudo'])) {
-    $e = "Veuillez vous onnectez-vous !";
+    $e = "Veuillez vous connecter  !";
     header("Location: login.php?erreur=$e");
     exit;
 }
@@ -18,7 +18,7 @@ if (isset($_POST['envoyer-message'])) {
     $stmt = $id->prepare("INSERT INTO t_messages (expediteur, message, date, destinataire)
     VALUES (?, ?, now(), ?)");
     $stmt->bind_param("isi", $expediteur, $message, $destinataire);
-    var_dump($stmt);
+    // var_dump($stmt);
     $stmt->execute();
     header("Location: index.php");
     exit();
@@ -29,7 +29,7 @@ if (isset($id) && isset($_POST['select-contact'])) {
     $id_user = $_SESSION['id_user'];
     $get_message = "SELECT m.*, u.pseudo AS nom_expe FROM t_messages m 
     INNER JOIN t_users u ON m.expediteur = u.id
-    WHERE destinataire = '$id_user' AND expediteur = '$expe' OR expediteur = '$id_user' AND destinataire = '$expe'";
+    WHERE destinataire = '$id_user' AND expediteur = '$expe' OR expediteur = '$id_user' AND destinataire = '$expe' OR destinataire = 'tous'";
     $posts = [];
     $posts = mysqli_query($id, $get_message);
 } else {
@@ -74,7 +74,7 @@ if (isset($id) && isset($_POST['select-contact'])) {
                         <option value="<?= $dest['id'] ?>"><?= $dest['pseudo'] ?></option>
                         <?php } ?>
                     </select><br>
-                    <input class="btn " type="submit" value="Afficher les messages" name="select-contact">
+                    <input class="btn btn-" type="submit" value="Afficher les messages" name="select-contact">
                 </form>
             </div>
 
@@ -115,6 +115,7 @@ if (isset($id) && isset($_POST['select-contact'])) {
                     <label class="m-2" for="destinataire">Contacts</label><br>
                     <select class="form-control rounded-4 shadow-sm" name="destinataire" id="destinataire">
                         <option value="" class="text-gray">Sélectionner un contact</option>
+                        <option value="tous">Tous</option>
                         <?php foreach ($users as $dest) { ?>
                         <option value="<?= $dest['id'] ?>"><?= $dest['pseudo'] ?></option>
                         <?php } ?>
