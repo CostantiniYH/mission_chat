@@ -111,19 +111,19 @@ final class Router
         [$class, $method] = $handler;
 
         if (!class_exists($class)) {
-            throw new \RuntimeException("Controller $class introuvable");
+            throw new RuntimeException("Controller $class introuvable");
         }
 
         $controller = new $class();
 
         if (!method_exists($controller, $method)) {
-            throw new \RuntimeException("Méthode $method introuvable dans $class");
+            throw new RuntimeException("Méthode $method introuvable dans $class");
         }
 
         return call_user_func_array([$controller, $method], $params);
     }
 
-    throw new \RuntimeException('Handler de route invalide');
+    throw new RuntimeException('Handler de route invalide');
 }
 
 }

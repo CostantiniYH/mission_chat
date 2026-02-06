@@ -18,11 +18,3 @@ if (!defined('BASE_URL')) {
         define('BASE_URL', $protocol . '://' . $host . $prefix . '/');
     }
 }
-
-
-return [
-    'db_host' => 'localhost',
-    'db_user' => 'root',
-    'db_pass' => '',
-    'db_name' => 'db_chat'
-];

@@ -68,12 +68,15 @@ class AuthController
 
             $ligne = mysqli_fetch_assoc($result);
 
-            $verifyPassword = password_verify($password, $ligne['password']);
-
             if (mysqli_num_rows($result) == 0) {
                 $e = "Email invalide.";
-                header("Location: " . BASE_URL. "login?e=$e");
+                header("Location: " . BASE_URL . "login?e=$e");
                 exit;
+            }
+
+            if (!password_verify($password, $ligne['password'])) {
+                $e = "Mot de passe incorrecte.";
+                return header("Location: " . BASE_URL . "login?e=$e");
             } else {
                 $_SESSION['id_user'] = $ligne['id'];
                 $_SESSION['pseudo'] = $ligne['pseudo'];
