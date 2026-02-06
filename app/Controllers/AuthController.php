@@ -42,12 +42,16 @@ class AuthController
                 mysqli_query($id, $add_user);
                 header("Location: " . BASE_URL. "login");
             }
+        } else {
+            $e = "Une erreur s'est produite.";
+            header("Location: " . BASE_URL ."register?e=$e");
+            exit;
         }
     }
 
     public function formLogin() {
         $titre = "Connexion";
-        // $css = "";
+        $css = "";
         $e = $_GET['e'] ?? '';
 
         ob_start();
@@ -86,6 +90,10 @@ class AuthController
                 header("Location: " . BASE_URL);
                 exit;
             }
+        } else {
+            $e = "Une erreur s'est produite.";
+            header("Location: " . BASE_URL ."login?e=$e");
+            exit;
         }
 
     }
