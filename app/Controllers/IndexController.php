@@ -12,7 +12,7 @@ class IndexController
         }
 
         $titre = "Chat yhc";
-        $css = "";
+        // $css = "";
         $id = mysqli_connect("localhost", "root", "", "db_chat");
 
         // Récupérer les utilisateurs pour les afficher comme des contacts

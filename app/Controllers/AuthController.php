@@ -47,7 +47,7 @@ class AuthController
 
     public function formLogin() {
         $titre = "Connexion";
-        $css = "";
+        // $css = "";
         $e = $_GET['e'] ?? '';
 
         ob_start();
