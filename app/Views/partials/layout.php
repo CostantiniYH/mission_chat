@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css">
     <?php if (isset($css) && !empty($css)):?>
-        <link rel="stylesheet" href="<?= BASE_URL .'css/'.$css ?>.css">
+        <link rel="stylesheet" href="<?= BASE_URL . 'css/' .$css ?>.css">
     <?php endif ?>
     <title><?= $titre ?></title>
 </head>
