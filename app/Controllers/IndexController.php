@@ -13,12 +13,12 @@ class IndexController
 
         $titre = "Chat yhc";
         $css = "";
-        $id = mysqli_connect("localhost", "root", "", "db_chat");
+        $id = \mysqli_connect("localhost", "root", "", "db_chat");
 
         // Récupérer les utilisateurs pour les afficher comme des contacts
         $contacts = "SELECT * FROM t_users";
         $users = [];
-        $users = mysqli_query($id, $contacts);
+        $users = \mysqli_query($id, $contacts);
 
         // Afficher les messages destinés à l'utilisateur connecté et les messages qu'il a lui-même envoyé
         if (isset($id) && isset($_POST['select-contact'])) {    
@@ -28,7 +28,7 @@ class IndexController
             INNER JOIN t_users u ON m.expediteur = u.id
             WHERE destinataire = '$id_user' AND expediteur = '$expe' OR expediteur = '$id_user' AND destinataire = '$expe' OR destinataire = 'tous'";
             $posts = [];
-            $posts = mysqli_query($id, $get_message);
+            $posts = \mysqli_query($id, $get_message);
         } else {
             $e = 'Veuillez sélectionner un contact pour afficher les messages';
         }
@@ -40,7 +40,7 @@ class IndexController
     }
 
     public function post() {
-        $id = mysqli_connect("localhost", "root", "", "db_chat");
+        $id = \mysqli_connect("localhost", "root", "", "db_chat");
 
         if (isset($_POST['envoyer-message']) && isset($_POST['destinataire'])) {
             $expediteur = $_SESSION['id_user'];

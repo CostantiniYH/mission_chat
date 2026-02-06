@@ -1,8 +1,4 @@
 <?php
-namespace App\Config;
-use PDO;
-use PDOException;
-
 // Connexion DB
 $id = mysqli_connect(
     $_ENV['DB_HOST'],

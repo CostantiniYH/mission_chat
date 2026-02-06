@@ -32,14 +32,14 @@ class AuthController
             require dirname(__DIR__) . "/config/Database.php";
             
             $sql = "SELECT * FROM t_users WHERE email = '$email'";
-            $result = mysqli_query($id, $sql);
+            $result = \mysqli_query($id, $sql);
 
-            if (mysqli_num_rows($result) > 0) {
+            if (\mysqli_num_rows($result) > 0) {
                 $error_email = "Email déjà utilisé.";
             } else {
                 $add_user = "INSERT INTO t_users (pseudo, email, password) 
                 VALUES ('$pseudo', '$email', '$password')";
-                mysqli_query($id, $add_user);
+                \mysqli_query($id, $add_user);
                 header("Location: " . BASE_URL. "login");
             }
         } else {
@@ -68,11 +68,11 @@ class AuthController
             require dirname(__DIR__) . "/config/Database.php";
             
             $sql = "SELECT * FROM t_users WHERE email = '$email'";
-            $result = mysqli_query($id, $sql);
+            $result = \mysqli_query($id, $sql);
 
-            $ligne = mysqli_fetch_assoc($result);
+            $ligne = \mysqli_fetch_assoc($result);
 
-            if (mysqli_num_rows($result) == 0) {
+            if (\mysqli_num_rows($result) == 0) {
                 $e = "Email invalide.";
                 header("Location: " . BASE_URL . "login?e=$e");
                 exit;
