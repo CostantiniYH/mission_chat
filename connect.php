@@ -1,4 +1,0 @@
-<?php
-$id = mysqli_connect("localhost", "root", "", "db_chat");
-
-?>
