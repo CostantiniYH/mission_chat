@@ -5,7 +5,7 @@ use PDO;
 // Cette classe User gère l'accès et les requêtes vers la BDD pour la table t_users.
 //  
 
-class User extends Model 
+class User extends Model
 {
     protected $table = 't_users';
 

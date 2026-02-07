@@ -1,6 +1,5 @@
 <?php
 use App\Core\Router;
-use App\Config\Database;
 
 $router = new Router();
 
