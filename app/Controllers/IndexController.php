@@ -91,7 +91,7 @@ class IndexController
                 $stmt->execute([$expediteur, $destId, $message, $isPublic]);
                 header("Location: " . BASE_URL);
                 exit;
-            } catch(\mysqli_sql_exception $e) {
+            } catch(\PDOException $e) {
                 error_log($e->getMessage());
                 echo "Une erreur s'est produite lors de l'envoie du message !";
                 header("Location: " . BASE_URL);
