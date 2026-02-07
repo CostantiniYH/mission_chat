@@ -1,8 +1,16 @@
 <?php
 namespace App\Controllers;
+use App\Config\Database;
+use Exception;
+use PDO;
 
 class IndexController
 {
+    private $pdo;
+    public function __construct() 
+    {
+        $this->pdo = Database::connect();
+    }
     public function index() {
         // Obligation de se connecter pour accéder au chat
         if (!isset($_SESSION['pseudo'])) {
@@ -13,22 +21,44 @@ class IndexController
 
         $titre = "Chat yhc";
         $css = "";
-        $id = \mysqli_connect("localhost", "root", "", "db_chat");
+
+        $pdo = $this->pdo;
 
         // Récupérer les utilisateurs pour les afficher comme des contacts
-        $contacts = "SELECT * FROM t_users";
-        $users = [];
-        $users = \mysqli_query($id, $contacts);
+        try {
+
+            $sql = "SELECT * FROM t_users ORDER BY pseudo ASC";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([]);
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+        } catch(\PDOException $e) {
+            throw new Exception("Une erreur s'est produite !");
+        }
 
         // Afficher les messages destinés à l'utilisateur connecté et les messages qu'il a lui-même envoyé
-        if (isset($id) && isset($_POST['select-contact'])) {    
-            $expe = $_POST['contact'];
+        if (isset($pdo) && isset($_POST['select-contact']) && !empty($_POST['contact'])) {    
+            $expe = $_POST['contact'] ?? null;
             $id_user = $_SESSION['id_user'];
-            $get_message = "SELECT m.*, u.pseudo AS nom_expe FROM t_messages m 
-            INNER JOIN t_users u ON m.expediteur = u.id
-            WHERE destinataire = '$id_user' AND expediteur = '$expe' OR expediteur = '$id_user' AND destinataire = '$expe' OR destinataire = 'tous'";
-            $posts = [];
-            $posts = \mysqli_query($id, $get_message);
+
+            try {     
+                $pdo = $this->pdo; // Connexion DB
+
+                $sql = "SELECT m.*, u.pseudo AS nom_expe FROM t_messages m 
+                INNER JOIN t_users u ON m.expediteur = u.id
+                WHERE (m.expediteur = ? AND  m.destinataire = ?) 
+                    OR (m.expediteur = ? AND m.destinataire = ?) 
+                    OR (m.expediteur = ? AND m.is_public = TRUE)
+                    ORDER BY m.date ASC"; // Classer par ordre d'envoie
+                $stmt = $pdo->prepare($sql);
+                // Les 4 paramètres servent à afficher : 
+                //      les messages du contact sélectionné ($expe) à l'utilisateur ($id_user), 
+                //      les messages de l'utilisateur ($id_user) au contact sélectionné ($expe)
+                //      les messages destinés à tous les contacts
+                $stmt->execute([$expe, $id_user, $id_user, $expe, $expe]);
+                $posts = $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+            } catch(\PDOException $e) {
+                throw new Exception("Une erreur s'est produite lors du chargement des messages !" . $e->getMessage());
+            }
         } else {
             $e = 'Veuillez sélectionner un contact pour afficher les messages';
         }
@@ -40,17 +70,25 @@ class IndexController
     }
 
     public function post() {
-        $id = \mysqli_connect("localhost", "root", "", "db_chat");
 
         if (isset($_POST['envoyer-message']) && isset($_POST['destinataire'])) {
             $expediteur = $_SESSION['id_user'];
             $message = $_POST['message'];
-            $destinataire = $_POST['destinataire'];
+            $destInput = $_POST['destinataire'];
+
+            if ($destInput === "all" || $destInput === "0" || empty($destInput)) {
+                $destId = null;  // PHP transmettra un vrai NULL à PDO
+                $isPublic = 1;   // Ton nouveau flag booléen
+            } else {
+                $destId = (int)$destInput; // C'est un ID d'utilisateur réel
+                $isPublic = 0;
+            }
             try {
-                $stmt = $id->prepare("INSERT INTO t_messages (expediteur, message, date, destinataire)
-                VALUES (?, ?, now(), ?)");
-                $stmt->bind_param("isi", $expediteur, $message, $destinataire);
-                $stmt->execute();
+                $pdo = $this->pdo; // Connexion DB
+
+                $stmt = $pdo->prepare("INSERT INTO t_messages (expediteur, destinataire, message, is_public)
+                VALUES (?, ?, ?, ?)");
+                $stmt->execute([$expediteur, $destId, $message, $isPublic]);
                 header("Location: " . BASE_URL);
                 exit;
             } catch(\mysqli_sql_exception $e) {

@@ -1,5 +1,7 @@
 <?php
 namespace App\Controllers;
+use App\Config\Database;
+use PDO;
 
 class AuthController
 {
@@ -19,7 +21,7 @@ class AuthController
             $pseudo = $_POST['pseudo'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $password2 = $_POST['password2'];
+            $password2 = $_POST['password2'];            
 
             if ($password !== $password2) {
                 $e = "Les mots de passes ne correspondent pas !";
@@ -27,21 +29,30 @@ class AuthController
                 exit;
             }
 
+            $pdo = Database::connect();
+            
+            $sql = "SELECT * FROM t_users WHERE email = ?";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$email]);
+            $userExist = $stmt->fetch(PDO::FETCH_ASSOC) ?? [];
+
+
+            if ($userExist) {
+                $e = "Email déjà utilisé.";
+                header("Location: ".BASE_URL."register?=$e");
+            } 
+
             $password = password_hash($password, PASSWORD_ARGON2ID);
 
-            require dirname(__DIR__) . "/config/Database.php";
             
-            $sql = "SELECT * FROM t_users WHERE email = '$email'";
-            $result = \mysqli_query($id, $sql);
+                $sql = "INSERT INTO t_users (pseudo, email, password) 
+                VALUES (?, ?, ?)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([$pseudo, $email, $password]);
 
-            if (\mysqli_num_rows($result) > 0) {
-                $error_email = "Email déjà utilisé.";
-            } else {
-                $add_user = "INSERT INTO t_users (pseudo, email, password) 
-                VALUES ('$pseudo', '$email', '$password')";
-                \mysqli_query($id, $add_user);
                 header("Location: " . BASE_URL. "login");
-            }
+                exit;
+            
         } else {
             $e = "Une erreur s'est produite.";
             header("Location: " . BASE_URL ."register?e=$e");
@@ -65,14 +76,16 @@ class AuthController
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            require dirname(__DIR__) . "/config/Database.php";
+            $pdo = Database::connect();
             
-            $sql = "SELECT * FROM t_users WHERE email = '$email'";
-            $result = \mysqli_query($id, $sql);
+            $sql = "SELECT * FROM t_users WHERE email = ?";            
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$email]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $ligne = \mysqli_fetch_assoc($result);
+            $ligne = $result;
 
-            if (\mysqli_num_rows($result) == 0) {
+            if ($result == false) {
                 $e = "Email invalide.";
                 header("Location: " . BASE_URL . "login?e=$e");
                 exit;
@@ -80,7 +93,8 @@ class AuthController
 
             if (!password_verify($password, $ligne['password'])) {
                 $e = "Mot de passe incorrecte.";
-                return header("Location: " . BASE_URL . "login?e=$e");
+                header("Location: " . BASE_URL . "login?e=$e");
+                exit;
             } else {
                 $_SESSION['id_user'] = $ligne['id'];
                 $_SESSION['pseudo'] = $ligne['pseudo'];

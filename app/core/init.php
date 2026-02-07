@@ -14,7 +14,14 @@ try {
 
     echo $response;
 } catch (\Exception $e) {
-    // Gestion d'erreur simple pour l'instant
-    http_response_code($e->getCode() ?: 500);
-    echo '<h1>Erreur : ' . htmlspecialchars($e->getMessage()) . '</h1>';
+    // On vérifie si le code est un entier valide pour HTTP, sinon on met 500
+    $code = is_int($e->getCode()) && $e->getCode() >= 100 && $e->getCode() < 600 
+            ? $e->getCode() 
+            : 500;
+
+    http_response_code($code);
+    
+    // Pour t'aider à débugger, affiche le vrai code SQL en log ou à l'écran :
+    echo "Erreur système : " . $e->getMessage() . " (Code SQL: " . $e->getCode() . ")";
+    exit;
 }
