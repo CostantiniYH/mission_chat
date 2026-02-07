@@ -3,7 +3,7 @@
     <?php if (isset($_SESSION['id_user']) && $_SESSION['id_user'] == true) : ?>
         <a class="nav-link bi bi-door-open-fill  text-danger" href="logout"></a>
     <?php elseif ($titre == "Inscription") :?>
-        <a class="nav-link text-black bi bi-person-circle text-success" href="login">Connexion</a>
+        <a class="nav-link text-black bi bi-person-circle text-success" href="login"></a>
     <?php else: ?>
         <a class="nav-link text-dark" href="register">Inscription</a>
     <?php endif ; ?>
