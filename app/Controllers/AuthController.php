@@ -8,7 +8,7 @@ class AuthController
     public function formRegister() {
         $titre = "Inscription";
         $css = "register";
-        $e = $_GET['e'] ?? '';
+        $e = $_GET['erreur'] ?? '';
 
         ob_start();
         require dirname(__DIR__) . "/Views/register.php";
@@ -25,7 +25,7 @@ class AuthController
 
             if ($password !== $password2) {
                 $e = "Les mots de passes ne correspondent pas !";
-                header("Location: " . BASE_URL ."register?e=$e");
+                header("Location: " . BASE_URL ."register?erreur=$e");
                 exit;
             }
 
@@ -39,7 +39,7 @@ class AuthController
 
             if ($userExist) {
                 $e = "Email déjà utilisé.";
-                header("Location: ".BASE_URL."register?=$e");
+                header("Location: ".BASE_URL."register?erreur=$e");
             } 
 
             $password = password_hash($password, PASSWORD_ARGON2ID);
@@ -50,12 +50,13 @@ class AuthController
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([$pseudo, $email, $password]);
 
-                header("Location: " . BASE_URL. "login");
+                $succes = "Inscription réussi !";
+                header("Location: " . BASE_URL. "login?sucess=" . urlencode($succes));
                 exit;
             
         } else {
             $e = "Une erreur s'est produite.";
-            header("Location: " . BASE_URL ."register?e=$e");
+            header("Location: " . BASE_URL ."register?erreur=$e");
             exit;
         }
     }
@@ -63,7 +64,7 @@ class AuthController
     public function formLogin() {
         $titre = "Connexion";
         $css = "";
-        $e = $_GET['e'] ?? '';
+        $e = $_GET['erreur'] ?? '';
 
         ob_start();
         require dirname(__DIR__) . "/Views/login.php";
@@ -86,14 +87,14 @@ class AuthController
             $ligne = $result;
 
             if ($result == false) {
-                $e = "Email invalide.";
-                header("Location: " . BASE_URL . "login?e=$e");
+                $e = "Email invalide !";
+                header("Location: " . BASE_URL . "login?erreur=$e");
                 exit;
             }
 
             if (!password_verify($password, $ligne['password'])) {
-                $e = "Mot de passe incorrecte.";
-                header("Location: " . BASE_URL . "login?e=$e");
+                $e = "Mot de passe incorrecte !";
+                header("Location: " . BASE_URL . "login?erreur=$e");
                 exit;
             } else {
                 $_SESSION['id_user'] = $ligne['id'];
@@ -106,7 +107,7 @@ class AuthController
             }
         } else {
             $e = "Une erreur s'est produite.";
-            header("Location: " . BASE_URL ."login?e=$e");
+            header("Location: " . BASE_URL ."login?erreur=$e");
             exit;
         }
 
@@ -116,7 +117,8 @@ class AuthController
         session_unset();
         session_destroy();
         setcookie(session_name(), '', time() - 3600, '/');
-        header("Location: " . BASE_URL. "login");
+        $info = "Vous êtes déconnecté";
+        header("Location: " . BASE_URL. "login?info=" . urlencode($info));
         exit;
     }
 }

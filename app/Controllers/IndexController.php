@@ -62,7 +62,9 @@ class IndexController
         }
         
         if (isset($_POST['select-contact']) && empty($_POST['contact']) ) {
-            $e = 'Veuillez sélectionner un contact pour afficher les messages';
+            $info = 'Vinfouillez sélectionner un contact pour afficher les messages';
+            header("Location: " . BASE_URL . "?info=" . urlencode($info));
+            exit;
         }
 
         ob_start();
@@ -97,14 +99,14 @@ class IndexController
             } catch(\mysqli_sql_exception $e) {
                 error_log($e->getMessage());
                 $e = "Une erreur s'est produite lors de l'envoie du message !";
-                header("Location: " . BASE_URL . "?e=$e");
+                header("Location: " . BASE_URL . "?erreur=$e");
                 exit;
             }
         } 
 
         if (isset($_POST['envoyer-message']) && empty($_POST['destinataire'])) {
             $e = "Veuillez sélectionner un contact pour envoyer un message.";
-            header("Location: " . BASE_URL . "?e=$e");
+            header("Location: " . BASE_URL . "?erreur=" . urlencode($e));
             exit;
         }
     }

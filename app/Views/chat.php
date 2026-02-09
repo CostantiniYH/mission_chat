@@ -3,8 +3,8 @@
         <h3 class="text-center rounded bg-body-tertiary p-5">Bienvenue <?= $_SESSION['pseudo'] ?></h3><hr>
         <h4 class="text-center mb-5">Vos messages</h4>
 
-        <?php if (isset($e) || (isset($_GET['e']))) { ?>
-            <div class="alert alert-warning"><?= $e ?? $_GET['e'] ?></div>
+        <?php if (isset($_GET['info'])) { ?>
+            <div class="alert alert-warning"><?= $e ?? $_GET['info'] ?></div>
         <?php }  ?>
 
         <div class="col-md-3 border-top mb-3">

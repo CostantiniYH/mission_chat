@@ -1,8 +1,12 @@
 <main class="container">    
-    <?php if ($_GET['e']) { ?>
-        <div class="alert alert-warning"><?= $_GET['e'] ?></div>
+    <?php if (isset($_GET['erreur'])) { ?>
+        <div class="alert alert-warning"><?= $_GET['erreur'] ?></div>
     <?php }  ?>
     <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="register" method="post">      
+        <?php if(isset($_GET['erreur'])) { ?>
+            <div class="alert alert-danger"><?= $_GET['erreur'] ?></div> 
+        <?php } ?>
+    
         <h1 class="text-center mb-4">Inscription</h1>
         <div class="input-group">                
             <input class="input-box" type="text" name="pseudo" id="pseudo" placeholder="" required>
@@ -11,10 +15,7 @@
         <div class="input-group">                
             <input class="input-box" type="text" name="email" id="email" placeholder="" required>
             <label class="label" for="email">Email</label>
-        </div>
-        <?php if (isset($error_email)) { ?>
-        <p class="alert alert-danger mt-3"> <?= $error_email ?></p>
-        <?php } ?>
+        </div>        
         <div class="input-group">                
             <input class="input-box" type="password" name="password" id="password" placeholder="" required>
             <label class="label" for="password">Mot de passe</label>
