@@ -1,7 +1,7 @@
 <main class="container">
     <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="register" method="post">      
-        <?php if(isset($_GET['erreur'])) { ?>
-            <div class="alert alert-danger"><?= $_GET['erreur'] ?></div> 
+        <?php if(isset($e)) { ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($e) ?></div> 
         <?php } ?>
     
         <h1 class="text-center mb-4">Inscription</h1>

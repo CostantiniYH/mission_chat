@@ -1,7 +1,7 @@
 <main class="container">
     <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="login" method="post">
         
-    <?php  if (isset($_GET['erreur'])) {
+    <?php  if (isset($e)) {
                 $color = 'danger';
             } elseif (isset($_GET['success'])) {
                 $color = 'success';
@@ -12,8 +12,8 @@
         <?php  if(isset($_GET)) { ?>
             <div class="alert alert-<?= $color ?>">
             <?php 
-                if(isset($_GET['erreur'])) {
-                    echo htmlspecialchars($_GET['erreur']);
+                if(isset($e)) {
+                    echo htmlspecialchars($e);
                 } elseif(isset($_GET['success'])) {
                     echo htmlspecialchars($_GET['success']);
                 } elseif (isset($_GET['info'])) {
