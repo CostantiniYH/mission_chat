@@ -26,7 +26,7 @@ class AuthController
             if ($password !== $password2) {
                 $e = "Les mots de passes ne correspondent pas !";
                 header("Location: " . BASE_URL ."register?erreur=" . urlencode($e));
-                exit;
+                exit();
             }
 
             $pdo = Database::connect();
@@ -52,12 +52,12 @@ class AuthController
 
                 $succes = "Inscription réussi !";
                 header("Location: " . BASE_URL. "login?sucess=" . urlencode($succes));
-                exit;
+                exit();
             
         } else {
             $e = "Une erreur s'est produite.";
             header("Location: " . BASE_URL ."register?erreur=" . urlencode($e));
-            exit;
+            exit();
         }
     }
 
@@ -89,13 +89,13 @@ class AuthController
             if ($result == false) {
                 $e = "Email invalide !";
                 header("Location: " . BASE_URL . "login?erreurrreur=$e");
-                exit;
+                exit();
             }
 
             if (!password_verify($password, $ligne['password'])) {
                 $e = "Mot de passe incorrecte.";
                 header("Location: " . BASE_URL . "login?erreur=" . urlencode($e));
-                exit;
+                exit();
             } else {
                 $_SESSION['id_user'] = $ligne['id'];
                 $_SESSION['pseudo'] = $ligne['pseudo'];
@@ -103,12 +103,12 @@ class AuthController
                 $_SESSION['role'] = $ligne['role'];
                 $_SESSION['logged_in'] = true;
                 header("Location: " . BASE_URL);
-                exit;
+                exit();
             }
         } else {
             $e = "Une erreur s'est produite.";
             header("Location: " . BASE_URL ."login?erreur=" . urlencode($e));
-            exit;
+            exit();
         }
 
     }
@@ -119,6 +119,6 @@ class AuthController
         setcookie(session_name(), '', time() - 3600, '/');
         $info = "Vous êtes déconnecté";
         header("Location: " . BASE_URL. "login?info=" . urlencode($info));
-        exit;
+        exit();
     }
 }
