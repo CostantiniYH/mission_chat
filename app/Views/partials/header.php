@@ -9,5 +9,5 @@
     <?php endif ; ?>
 </nav>
 <header class="bg-warning bg-opacity-50 mb-5 p-5 text-white">
-    <h1 class="titre">Chattez avec Devsio-Chat</h1>
+    <h1 class="titre">Chattez avec DevPro-Chat</h1>
 </header>

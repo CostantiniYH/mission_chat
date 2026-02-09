@@ -59,7 +59,9 @@ class IndexController
             } catch(\PDOException $e) {
                 throw new Exception("Une erreur s'est produite lors du chargement des messages !" . $e->getMessage());
             }
-        } else {
+        }
+        
+        if (isset($_POST['select-contact']) && empty($_POST['contact']) ) {
             $e = 'Veuillez sélectionner un contact pour afficher les messages';
         }
 
@@ -71,7 +73,7 @@ class IndexController
 
     public function post() {
 
-        if (isset($_POST['envoyer-message']) && isset($_POST['destinataire'])) {
+        if (isset($_POST['envoyer-message']) && !empty($_POST['destinataire'])) {
             $expediteur = $_SESSION['id_user'];
             $message = $_POST['message'];
             $destInput = $_POST['destinataire'];
@@ -83,6 +85,7 @@ class IndexController
                 $destId = (int)$destInput; // C'est un ID d'utilisateur réel
                 $isPublic = 0;
             }
+
             try {
                 $pdo = $this->pdo; // Connexion DB
 
@@ -93,13 +96,15 @@ class IndexController
                 exit;
             } catch(\mysqli_sql_exception $e) {
                 error_log($e->getMessage());
-                echo "Une erreur s'est produite lors de l'envoie du message !";
-                header("Location: " . BASE_URL);
+                $e = "Une erreur s'est produite lors de l'envoie du message !";
+                header("Location: " . BASE_URL . "?e=$e");
                 exit;
             }
-        } else {
+        } 
+
+        if (isset($_POST['envoyer-message']) && empty($_POST['destinataire'])) {
             $e = "Veuillez sélectionner un contact pour envoyer un message.";
-                header("Location: " . BASE_URL);
+            header("Location: " . BASE_URL . "?e=$e");
             exit;
         }
     }
