@@ -1,5 +1,5 @@
 <main class="container">    
-    <?php if ($_GET['e']) { ?>
+    <?php if (isset($_GET['e'])) { ?>
         <div class="alert alert-warning"><?= $_GET['e'] ?></div>
     <?php }  ?>
     <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="register" method="post">      
