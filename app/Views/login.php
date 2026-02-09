@@ -9,7 +9,7 @@
                 $color = 'warning';
             }  ?>
 
-        <?php  if(isset($_GET)) { ?>
+        <?php  if(!empty($_GET)) { ?>
             <div class="alert alert-<?= $color ?>">
             <?php 
                 if(isset($e)) {

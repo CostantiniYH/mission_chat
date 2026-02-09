@@ -8,7 +8,7 @@ class AuthController
     public function formRegister() {
         $titre = "Inscription";
         $css = "register";
-        $e = $_GET['erreur'] ?? '';
+        $e = $_GET['erreur'] ?? null;
 
         ob_start();
         require dirname(__DIR__) . "/Views/register.php";
