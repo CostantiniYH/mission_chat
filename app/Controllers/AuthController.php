@@ -64,7 +64,7 @@ class AuthController
     public function formLogin() {
         $titre = "Connexion";
         $css = "";
-        $e = $_GET['erreur'];
+        $e = $_GET['erreur'] ?? '';
 
         ob_start();
         require dirname(__DIR__) . "/Views/login.php";
