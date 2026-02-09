@@ -88,7 +88,7 @@ class AuthController
 
             if ($result == false) {
                 $e = "Email invalide !";
-                header("Location: " . BASE_URL . "login?erreurrreur=$e");
+                header("Location: " . BASE_URL . "login?erreur=$e");
                 exit();
             }
 
