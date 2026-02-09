@@ -1,6 +1,6 @@
 <main class="container">
     <?php if (isset($_GET['e'])) { ?>
-        <div class="alert alert-warning"><?= $_GET['e'] ?></div>
+        <div class="alert alert-warning"><?= htmlspecialchars($_GET['e']) ?></div>
     <?php }  ?>
     <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="login" method="post">
         <?php if(isset($_GET['erreur'])) { ?> <div class="alert alert-warning"><?= $_GET['erreur'] ?></div> <?php } ?>

@@ -25,7 +25,7 @@ class AuthController
 
             if ($password !== $password2) {
                 $e = "Les mots de passes ne correspondent pas !";
-                header("Location: " . BASE_URL ."register?e=$e");
+                header("Location: " . BASE_URL ."register?e=" . urlencode($e));
                 exit;
             }
 
@@ -39,7 +39,7 @@ class AuthController
 
             if ($userExist) {
                 $e = "Email déjà utilisé.";
-                header("Location: ".BASE_URL."register?=$e");
+                header("Location: ".BASE_URL."register?e=" . urlencode($e));
             } 
 
             $password = password_hash($password, PASSWORD_ARGON2ID);
@@ -55,7 +55,7 @@ class AuthController
             
         } else {
             $e = "Une erreur s'est produite.";
-            header("Location: " . BASE_URL ."register?e=$e");
+            header("Location: " . BASE_URL ."register?e=" . urlencode($e));
             exit;
         }
     }
@@ -87,13 +87,13 @@ class AuthController
 
             if ($result == false) {
                 $e = "Email invalide.";
-                header("Location: " . BASE_URL . "login?e=$e");
+                header("Location: " . BASE_URL . "login?e=" . urlencode($e));
                 exit;
             }
 
             if (!password_verify($password, $ligne['password'])) {
                 $e = "Mot de passe incorrecte.";
-                header("Location: " . BASE_URL . "login?e=$e");
+                header("Location: " . BASE_URL . "login?e=" . urlencode($e));
                 exit;
             } else {
                 $_SESSION['id_user'] = $ligne['id'];
@@ -106,7 +106,7 @@ class AuthController
             }
         } else {
             $e = "Une erreur s'est produite.";
-            header("Location: " . BASE_URL ."login?e=$e");
+            header("Location: " . BASE_URL ."login?e=" . urlencode($e));
             exit;
         }
 

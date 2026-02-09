@@ -4,7 +4,7 @@
         <h4 class="text-center mb-5">Vos messages</h4>
 
         <?php if (isset($e) || (isset($_GET['e']))) { ?>
-            <div class="alert alert-warning"><?= $e ?? $_GET['e'] ?></div>
+            <div class="alert alert-warning"><?= htmlspecialchars($e) ?? htmlspecialchars($_GET['e']) ?></div>
         <?php }  ?>
 
         <div class="col-md-3 border-top mb-3">

@@ -15,7 +15,7 @@ class IndexController
         // Obligation de se connecter pour accéder au chat
         if (!isset($_SESSION['pseudo'])) {
             $e = "Veuillez vous connecter  !";
-            header("Location: " . BASE_URL. "login?erreur=$e");
+            header("Location: " . BASE_URL. "login?e=" . urlencode($e));
             exit;
         }
 
@@ -97,14 +97,14 @@ class IndexController
             } catch(\PDOException $e) {
                 error_log($e->getMessage());
                 $e = "Une erreur s'est produite lors de l'envoie du message !";
-                header("Location: " . BASE_URL . "?e=$e");
+                header("Location: " . BASE_URL . "?e=" . urlencode($e));
                 exit;
             }
         } 
 
         if (isset($_POST['envoyer-message']) && empty($_POST['destinataire'])) {
             $e = "Veuillez sélectionner un contact pour envoyer un message.";
-            header("Location: " . BASE_URL . "?e=$e");
+            header("Location: " . BASE_URL . "?e=" . urlencode($e));
             exit;
         }
     }
