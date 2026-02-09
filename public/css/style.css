@@ -8,6 +8,12 @@ body {
     background-repeat: no-repeat;
 }
 
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
 
 .titre {
     text-align: center;
@@ -71,4 +77,14 @@ body {
 
 .bg-foreign {
     background-color: rgb(82, 82, 82);
+}
+
+.bg-blue {
+    background-image: linear-gradient(
+        145deg,
+        rgba(0, 136, 255, 0.66),
+        rgba(0, 136, 255, 0.292),
+        rgba(0, 136, 255, 0.08),
+        rgba(0, 136, 255, 0.553)
+    );
 }

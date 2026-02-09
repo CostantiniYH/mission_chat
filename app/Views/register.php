@@ -1,6 +1,6 @@
 <main class="container">    
-    <?php if (isset($e) && !empty($e)) { ?>
-        <div class="alert alert-warning"><?= $e ?></div>
+    <?php if ($_GET['e']) { ?>
+        <div class="alert alert-warning"><?= $_GET['e'] ?></div>
     <?php }  ?>
     <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="register" method="post">      
         <h1 class="text-center mb-4">Inscription</h1>
