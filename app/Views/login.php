@@ -14,7 +14,7 @@
         }
         ?>
 
-        <?php if(!empty($_GET['erreur']) || !empty($_GET['success']) || !empty($_GET['info'])): ?>
+        <?php if(isset($_GET['erreur']) || isset($_GET['success']) || isset($_GET['info'])): ?>
             <div class="alert alert-<?= $color ?> alert-dismissible fade show">
                 <?php 
                     if(isset($_GET['erreur'])) {
