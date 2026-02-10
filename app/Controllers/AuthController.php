@@ -116,7 +116,7 @@ class AuthController
         session_unset();
         session_destroy();
         setcookie(session_name(), '', time() - 3600, '/');
-        $_SESSION['info'] = "Vous êtes déconnecté";
+        $_SESSION['info'] = "Vous vous êtes déconnecté avec succès !";
         header("Location: " . BASE_URL. "login");
         exit();
     }

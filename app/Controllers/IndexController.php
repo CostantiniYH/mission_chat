@@ -14,7 +14,7 @@ class IndexController
     public function index() {
         // Obligation de se connecter pour accéder au chat
         if (!isset($_SESSION['pseudo'])) {
-            $_SESSION['info'] = "Veuillez vous connecter  !";
+            $_SESSION['warning'] = "Veuillez vous connecter  !";
             header("Location: " . BASE_URL. "login");
             exit();
         }
@@ -107,7 +107,7 @@ class IndexController
         } 
 
         if (isset($_POST['envoyer-message']) && empty($_POST['destinataire'])) {
-            $_SESSION = "Veuillez sélectionner un contact pour envoyer un message.";
+            $_SESSION['warning'] = "Veuillez sélectionner un contact pour envoyer un message.";
             header("Location: " . BASE_URL);
             exit();
         }
