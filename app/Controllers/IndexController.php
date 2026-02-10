@@ -21,7 +21,7 @@ class IndexController
 
         
         if (isset($_POST['select-contact']) && empty($_POST['contact']) ) {
-            $_SESSION['info'] = 'Veuillez sélectionner un contact pour afficher les messages';            
+            $_SESSION['warning'] = 'Veuillez sélectionner un contact pour afficher les messages';            
             header("Location: " . BASE_URL);
             exit();
         }
