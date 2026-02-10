@@ -1,35 +1,8 @@
-<main class="container">
-    <?php  
-        // Déterminer la couleur selon le type de message
-        if (isset($_SESSION['erreur'])) {
-            $color = 'danger';
-        } elseif (isset($_GET['success'])) {
-            $color = 'success';
-        } elseif (isset($_GET['info'])) {
-            $color = 'info';
-        } else {
-            $color = 'secondary';
-        }
-        ?>
-
-        <?php if(isset($_SESSION['erreur']) || isset($_GET['success']) || isset($_GET['info'])): ?>
-            <div class="alert alert-<?= $color ?> alert-dismissible fade show">
-                <?php 
-                    if(isset($_SESSION['erreur'])) {
-                        echo htmlspecialchars($_SESSION['erreur']);
-                    } elseif(isset($_GET['success'])) {
-                        echo htmlspecialchars($_GET['success']);
-                    } elseif (isset($_GET['info'])) {
-                        echo htmlspecialchars($_GET['info']);
-                    }
-                ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div> 
-        <?php endif; ?>
+<main class="container">   
     <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="<?= BASE_URL ?>login" method="post">
         
+        <?php require __DIR__ . "/partials/alert.php"; ?>
         
-
         <h1 class="text-center mb-4">Connexion</h1>
         <div class="input-group">                
             <input class="input-box" type="text" name="email" id="email" placeholder="" required>
