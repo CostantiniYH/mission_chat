@@ -9,7 +9,7 @@
     } else {
         $color = 'secondary';
     }
-    
+
     if(isset($_SESSION['erreur']) || isset($_SESSION['success']) || isset($_SESSION['info'])): ?>
 
     <div class="alert alert-<?= $color ?> alert-dismissible fade show">
@@ -27,4 +27,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div> 
 
-<?php endif; ?>
+<?php
+        unset($_SESSION['erreur']);
+        unset($_SESSION['success']);
+        unset($_SESSION['info']);
+    endif; ?>
