@@ -1,7 +1,5 @@
 <main class="container">
-    <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="<?= BASE_URL ?>login" method="post">
-        
-        <?php  
+    <?php  
         // Déterminer la couleur selon le type de message
         if (isset($_GET['erreur'])) {
             $color = 'danger';
@@ -15,7 +13,7 @@
         ?>
 
         <?php if(isset($_GET['erreur']) || isset($_GET['success']) || isset($_GET['info'])): ?>
-            <div class="alert alert-<?= $color ?>">
+            <div class="alert alert-<?= $color ?> alert-dismissible fade show">
                 <?php 
                     if(isset($_GET['erreur'])) {
                         echo htmlspecialchars($_GET['erreur']);
@@ -25,8 +23,12 @@
                         echo htmlspecialchars($_GET['info']);
                     }
                 ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div> 
         <?php endif; ?>
+    <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="<?= BASE_URL ?>login" method="post">
+        
+        
 
         <h1 class="text-center mb-4">Connexion</h1>
         <div class="input-group">                
