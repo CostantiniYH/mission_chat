@@ -1,5 +1,5 @@
 <main class="container">
-    <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="login" method="post">
+    <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="<?= BASE_URL ?>login" method="post">
         
         <?php  
         // Déterminer la couleur selon le type de message

@@ -40,6 +40,7 @@ class AuthController
             if ($userExist) {
                 $e = "Email déjà utilisé.";
                 header("Location: ".BASE_URL."register?erreur=" . urlencode($e));
+                exit;
             } 
 
             $password = password_hash($password, PASSWORD_ARGON2ID);
@@ -50,8 +51,8 @@ class AuthController
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([$pseudo, $email, $password]);
 
-                $succes = "Inscription réussi !";
-                header("Location: " . BASE_URL. "login?sucess=" . urlencode($succes));
+                $success = "Inscription réussi !";
+                header("Location: " . BASE_URL. "login?success=" . urlencode($success));
                 exit();
             
         } else {
@@ -88,7 +89,7 @@ class AuthController
 
             if ($result == false) {
                 $e = "Email invalide !";
-                header("Location: " . BASE_URL . "login?erreur=$e");
+                header("Location: " . BASE_URL . "login?erreur=" . urldecode($e));
                 exit();
             }
 

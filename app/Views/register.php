@@ -1,5 +1,5 @@
 <main class="container">
-    <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="register" method="post">      
+    <form class="col-md-8 rounded form shadow p-5 mx-auto bg-light" action="<?= BASE_URL ?>register" method="post">      
         <?php if(isset($e)) { ?>
             <div class="alert alert-danger"><?= htmlspecialchars($e) ?></div> 
         <?php } ?>
