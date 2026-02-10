@@ -115,7 +115,6 @@ class AuthController
     public function logout() {
         session_unset();
         session_destroy();
-        setcookie(session_name(), '', time() - 3600, '/');
 
         session_start();
         $_SESSION['info'] = "Vous vous êtes déconnecté avec succès !";
