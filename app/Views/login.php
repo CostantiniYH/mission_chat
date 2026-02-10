@@ -15,7 +15,7 @@
         ?>
 
         <?php if(isset($_GET['erreur']) || isset($_GET['success']) || isset($_GET['info'])): ?>
-            <div class="alert alert-<?= $color ?> alert-dismissible fade show">
+            <div class="alert alert-<?= $color ?>">
                 <?php 
                     if(isset($_GET['erreur'])) {
                         echo htmlspecialchars($_GET['erreur']);
