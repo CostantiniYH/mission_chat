@@ -15,7 +15,7 @@ class IndexController
         // Obligation de se connecter pour accéder au chat
         if (!isset($_SESSION['pseudo'])) {
             $e = "Veuillez vous connecter  !";
-            header("Location: " . BASE_URL. "login?e=" . urlencode($e));
+            header("Location: " . BASE_URL. "login?ereur=" . urlencode($e));
             exit();
         }
 
