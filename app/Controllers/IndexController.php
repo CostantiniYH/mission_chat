@@ -14,7 +14,7 @@ class IndexController
     public function index() {
         // Obligation de se connecter pour accéder au chat
         if (!isset($_SESSION['pseudo'])) {
-            $_SESSION['erreur'] = "Veuillez vous connecter  !";
+            $_SESSION['info'] = "Veuillez vous connecter  !";
             header("Location: " . BASE_URL. "login");
             exit();
         }
