@@ -8,8 +8,7 @@ class AuthController
     public function formRegister() {
         $titre = "Inscription";
         $css = "register";
-        $e = $_GET['erreur'] ?? null;
-
+        
         ob_start();
         require dirname(__DIR__) . "/Views/register.php";
         $content = ob_get_clean();
@@ -65,7 +64,6 @@ class AuthController
     public function formLogin() {
         $titre = "Connexion";
         $css = "";
-        $e = $_GET['erreur'] ?? '';
 
         ob_start();
         require dirname(__DIR__) . "/Views/login.php";
