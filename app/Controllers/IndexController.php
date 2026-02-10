@@ -14,14 +14,15 @@ class IndexController
     public function index() {
         // Obligation de se connecter pour accéder au chat
         if (!isset($_SESSION['pseudo'])) {
-            $e = "Veuillez vous connecter  !";
-            header("Location: " . BASE_URL. "login?ereur=" . urlencode($e));
+            $_SESSION['erreur'] = "Veuillez vous connecter  !";
+            header("Location: " . BASE_URL. "login");
             exit();
         }
 
         
         if (isset($_POST['select-contact']) && empty($_POST['contact']) ) {
             $info = 'Veuillez sélectionner un contact pour afficher les messages';
+            
             header("Location: " . BASE_URL . "?info=" . urlencode($info));
             exit();
         }

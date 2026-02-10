@@ -1,7 +1,7 @@
 <main class="container">
     <?php  
         // Déterminer la couleur selon le type de message
-        if (isset($_GET['erreur'])) {
+        if (isset($_SESSION['erreur'])) {
             $color = 'danger';
         } elseif (isset($_GET['success'])) {
             $color = 'success';
@@ -12,11 +12,11 @@
         }
         ?>
 
-        <?php if(isset($_GET['erreur']) || isset($_GET['success']) || isset($_GET['info'])): ?>
+        <?php if(isset($_SESSION['erreur']) || isset($_GET['success']) || isset($_GET['info'])): ?>
             <div class="alert alert-<?= $color ?> alert-dismissible fade show">
                 <?php 
-                    if(isset($_GET['erreur'])) {
-                        echo htmlspecialchars($_GET['erreur']);
+                    if(isset($_SESSION['erreur'])) {
+                        echo htmlspecialchars($_SESSION['erreur']);
                     } elseif(isset($_GET['success'])) {
                         echo htmlspecialchars($_GET['success']);
                     } elseif (isset($_GET['info'])) {
