@@ -3,9 +3,9 @@
         <h3 class="text-center rounded bg-body-tertiary p-5">Bienvenue <?= $_SESSION['pseudo'] ?></h3><hr>
         <h4 class="text-center mb-5">Vos messages</h4>
 
-        <?php if (isset($_GET['erreur'])) { ?>
+        <?php if (isset($_GET['erreur'])) : ?>
             <div class="alert alert-warning"><?= htmlspecialchars($_GET['erreur']) ?></div>
-        <?php }  ?>
+        <?php endif  ?>
 
         <div class="col-md-3 border-top mb-3">
             <form class="form-group formContent" action="" method="post">
