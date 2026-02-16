@@ -6,12 +6,13 @@ use PDOException;
 class Database
 {
     public static function connect() {
+        $type    = $_ENV['DB_TYPE'];
         $host    = $_ENV['DB_HOST'];
         $user    = $_ENV['DB_USER'];
         $pass    = $_ENV['DB_PASS'];
         $db_name = $_ENV['DB_NAME'];
 
-        $dsn = "pgsql:host=$host;dbname=$db_name";
+        $dsn = "$type:host=$host;dbname=$db_name";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
