@@ -13,5 +13,8 @@
             <label class="label" for="password">Mot de passe</label>
         </div>
         <input class="form-control btn text-white" type="submit" name="connexion" value="Se connecter">
+        <p>Créer votre comte ici : 
+            <a class="" href="register">Inscription</a>
+        </p>
     </form>
 </main>

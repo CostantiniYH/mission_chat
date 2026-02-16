@@ -2,10 +2,8 @@
     <a class="nav-link text-dark" href="<?= BASE_URL ?>">Chat YHC</a>
     <?php if (isset($_SESSION['id_user']) && $_SESSION['id_user'] == true) : ?>
         <a class="nav-link bi bi-door-open-fill  text-danger" href="logout"></a>
-    <?php elseif ($titre == "Inscription") :?>
-        <a class="nav-link text-black bi bi-person-circle text-success" href="login"></a>
     <?php else: ?>
-        <a class="nav-link text-dark" href="register">Inscription</a>
+        <a class="nav-link text-black bi bi-person-circle text-success" href="login"></a>
     <?php endif ; ?>
 </nav>
 <header class="bg-warning bg-opacity-50 mb-5 p-5 text-white">
