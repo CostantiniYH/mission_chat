@@ -3,6 +3,7 @@ namespace App\Config;
 use PDO;
 use PDOException;
 
+// Singleton
 class Database
 {
     public static function connect() {
